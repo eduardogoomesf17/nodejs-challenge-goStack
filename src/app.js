@@ -34,9 +34,13 @@ app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
   const { title, url, techs } = request.body;
 
+  if(!id) {
+    return response.status(400).json('Id cant be empty');
+  }
+
   const repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
-  if(!repositoryIndex) {
+  if(repositoryIndex === -1) {
     return response.status(400).send('None repository found by the given id');
   }
 
@@ -53,9 +57,13 @@ app.put("/repositories/:id", (request, response) => {
 app.delete("/repositories/:id", (request, response) => {
   const { id } = request.params;
 
+  if(!id) {
+    return response.status(400).json('Id cant be empty');
+  }
+
   const repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
-  if(!repositoryIndex) {
+  if(repositoryIndex === -1) {
     return response.status(400).send('None repository found by the given id');
   }
   
@@ -68,9 +76,13 @@ app.delete("/repositories/:id", (request, response) => {
 app.post("/repositories/:id/like", (request, response) => {
   const { id } = request.params;
 
+  if(!id) {
+    return response.status(400).send();
+  }
+
   const repositoryIndex = repositories.findIndex(repository => repository.id === id);
 
-  if(!repositoryIndex) {
+  if(repositoryIndex === -1) {
     return response.status(400).send('None repository found by the given id');
   }
 
